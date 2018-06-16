@@ -1,0 +1,102 @@
+﻿@*@model IEnumerable<ExpensesMVC2018.ViewModels.ExpensesViewModel>*@
+@model ExpensesMVC2018.ViewModels.ExpenseViewModel
+
+@{
+    ViewBag.Title = "GetExpenses";
+}
+
+<h2>GetExpenses</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BranchCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VendorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastFourCcNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiptFileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisplayReceiptImage)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.GetExpenses)
+    {
+
+        var imagetype = "jpeg";
+
+        String img64 = Convert.ToBase64String(item.DisplayReceiptImage);
+        //String img64Url = string.Format("data:image/" + item.imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
+        String img64Url = string.Format("data:image/" + imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BranchCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastFourCcNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiptFileName)
+            </td>
+            <td>
+                <img src="@img64Url" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
