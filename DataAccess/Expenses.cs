@@ -1,4 +1,5 @@
 ﻿using ExpensesMVC2018.Models;
+using ExpensesMVC2018.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,28 +15,6 @@ namespace ExpensesMVC2018.DataAccess
         private SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DougDB"].ToString());
 
         /// <summary>
-        /// Check reader values for null before casting to string
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="columnName"></param>
-        /// <returns></returns>
-        private String GetStringValue(SqlDataReader reader, String columnName)
-        {
-            return (reader[columnName] != null && reader[columnName] != DBNull.Value) ? Convert.ToString(reader[columnName]) : null;
-        }
-
-        /// <summary>
-        /// Check reader values for null before casting to int
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="columnName"></param>
-        /// <returns></returns>
-        private int GetIntValue(SqlDataReader reader, String columnName)
-        {
-            return (reader[columnName] != null && reader[columnName] != DBNull.Value) ? Convert.ToInt32(reader[columnName]) : 0;
-        }
-
-        /// <summary>
         /// Add new Expense
         /// </summary>
         /// <param name="model"></param>
@@ -47,12 +26,12 @@ namespace ExpensesMVC2018.DataAccess
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@UserId", model.UserId);
                 cmd.Parameters.AddWithValue("@ExpenseDate", model.ExpenseDate);
-                cmd.Parameters.AddWithValue("@ExpenseType", model.ExpenseType);
+                cmd.Parameters.AddWithValue("@ExpenseTypeId", model.ExpenseTypeId);
                 cmd.Parameters.AddWithValue("@ExpenseAmount", model.ExpenseAmount);
                 cmd.Parameters.AddWithValue("@BranchCode", model.BranchCode);
                 cmd.Parameters.AddWithValue("@VendorName", model.VendorName);
                 cmd.Parameters.AddWithValue("@LastFourCcNumber", model.LastFourCcNumber);
-                cmd.Parameters.AddWithValue("@Notes", model.Notes);
+                cmd.Parameters.AddWithValue("@Note", Helpers.SqlNullHandler(model.Note));
                 cmd.Parameters.AddWithValue("@ReceiptFileName", model.ReceiptFileName);
                 //cmd.Parameters.AddWithValue("@ReceiptImage", model.ReceiptImage.InputStream);
                 cmd.Parameters.AddWithValue("@ReceiptImage", SqlDbType.VarBinary).Value = model.ConvertedReceiptImage; // or is type binary?
@@ -78,22 +57,48 @@ namespace ExpensesMVC2018.DataAccess
                     expenses.Add(
                         new Expense()
                         {
-                            ExpenseId = GetIntValue(reader, "ExpenseId"),
-                            UserId = GetIntValue(reader, "UserId"),
+                            ExpenseId = Helpers.GetIntValue(reader, "ExpenseId"),
+                            UserId = Helpers.GetIntValue(reader, "UserId"),
                             ExpenseDate = Convert.ToDateTime(reader["ExpenseDate"]),
-                            ExpenseType = GetStringValue(reader, "ExpenseType"),
+                            ExpenseTypeId = Helpers.GetIntValue(reader, "ExpenseTypeId"),
+                            ExpenseTypeDescription = Helpers.GetStringValue(reader, "ExpenseTypeDescription"),
                             ExpenseAmount = Convert.ToDouble(reader["ExpenseAmount"]),
-                            BranchCode = GetStringValue(reader, "BranchCode"),
-                            VendorName = GetStringValue(reader, "VendorName"),
-                            LastFourCcNumber = GetStringValue(reader, "LastFourCcNumber"),
-                            Notes = GetStringValue(reader, "Notes"),
-                            ReceiptFileName = GetStringValue(reader, "ReceiptFileName"),
+                            BranchCode = Helpers.GetStringValue(reader, "BranchCode"),
+                            VendorName = Helpers.GetStringValue(reader, "VendorName"),
+                            LastFourCcNumber = Helpers.GetStringValue(reader, "LastFourCcNumber"),
+                            //Note = Helpers.GetStringValue(reader, "Notes"),
+                            Notes = Helpers.GetListValue(reader, "Notes"),
+                            StatusId = Helpers.GetIntValue(reader, "StatusId"),
+                            StatusDescription = Helpers.GetStringValue(reader, "StatusDescription"),
+                            ReceiptFileName = Helpers.GetStringValue(reader, "ReceiptFileName"),
                             DisplayReceiptImage = (Byte[])reader["Receipt"]
                         });
                 }
             }
 
             return expenses;
+        }
+
+        public static List<ExpenseType> GetExpenseTypes()
+        {
+            List<ExpenseType> expenseTypes = new List<ExpenseType>();
+
+            using (var DataWrapper = new Utilities.DataWrapper())
+            {
+                var reader = DataWrapper.Query("GetExpenseTypes");
+
+                while (reader.Read())
+                {
+                    expenseTypes.Add(
+                        new ExpenseType()
+                        {
+                            ExpenseTypeId = (int)reader["ExpenseTypeId"],
+                            ExpenseTypeDescription = (string)reader["ExpenseTypeDescription"]
+                        });
+                }
+            }
+
+            return expenseTypes;
         }
     }
 }

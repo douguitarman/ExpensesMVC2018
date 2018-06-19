@@ -27,7 +27,10 @@ namespace ExpensesMVC2018.Controllers
         // GET: Expenses/Create
         public ActionResult Create()
         {
-            return View();
+            Expense model = new Expense();
+            model.ExpenseTypes = DataAccess.Expenses.GetExpenseTypes();
+
+            return View(model);
         }
 
         // POST: Expenses/Create
@@ -84,16 +87,7 @@ namespace ExpensesMVC2018.Controllers
                     //myFile.SaveAs(path);
 
                     // From Stream instead if no memory issues?
-                    // Need using statement to dispose. Also need to make sure I'm doing this in the most efficient way.
-                    byte[] bImage = new byte[myFile.ContentLength];
-                    Stream objStream = myFile.InputStream;
-                    byte[] receipt = ImageResizer.ImageResize(objStream);
-
-                    // Resize the image and return as byte array for storege into database
-                    //byte[] receipt = ImageResizer.ImageResize(path, filename);                    
-
-                    // Add receipt to model
-                    model.ConvertedReceiptImage = receipt;
+                    model.ConvertedReceiptImage = Helpers.ConvertResizeImage(myFile);
 
                     // Save data
                     DataAccess.Expenses exp = new DataAccess.Expenses();

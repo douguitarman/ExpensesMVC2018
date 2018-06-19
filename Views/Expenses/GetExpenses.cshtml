@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.ExpenseDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExpenseType)
+            @Html.DisplayNameFor(model => model.ExpenseTypeDescription)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ExpenseAmount)
@@ -37,7 +37,10 @@
             @Html.DisplayNameFor(model => model.LastFourCcNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model.StatusDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ReceiptFileName)
@@ -68,7 +71,7 @@
                 @Html.DisplayFor(modelItem => item.ExpenseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExpenseType)
+                @Html.DisplayFor(modelItem => item.ExpenseTypeDescription)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExpenseAmount)
@@ -83,7 +86,17 @@
                 @Html.DisplayFor(modelItem => item.LastFourCcNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Notes)
+                @Html.DisplayFor(modelItem => item.StatusDescription)
+            </td>
+            <td>
+                @if (item.Notes != null)
+                {
+                    foreach (var note in item.Notes)
+                    {
+                        @note
+                        <hr />
+                    }
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ReceiptFileName)

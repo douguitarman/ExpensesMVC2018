@@ -13,7 +13,9 @@ namespace ExpensesMVC2018.Models
 
         public DateTime ExpenseDate { get; set; }
 
-        public string ExpenseType { get; set; }
+        public int ExpenseTypeId { get; set; }
+
+        public string ExpenseTypeDescription { get; set; }
 
         public double ExpenseAmount { get; set; }
 
@@ -23,7 +25,13 @@ namespace ExpensesMVC2018.Models
 
         public string LastFourCcNumber { get; set; }
 
-        public string Notes { get; set; }
+        public string Note { get; set; }
+
+        public List<string> Notes { get; set; }
+
+        public int StatusId { get; set; }
+
+        public string StatusDescription { get; set; }
 
         public string ReceiptFileName { get; set; }
 
@@ -32,6 +40,8 @@ namespace ExpensesMVC2018.Models
         public byte[] ConvertedReceiptImage { get; set; }
 
         public byte[] DisplayReceiptImage { get; set; }
+
+        public List<ExpenseType> ExpenseTypes { get; set; }
 
         //public List<Expense> GetExpenses { get; set; }
 
