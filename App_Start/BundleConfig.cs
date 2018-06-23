@@ -25,7 +25,11 @@ namespace ExpensesMVC2018
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap-flat.min.css",
+                      "~/Content/bootstrap-flat-extras.min.css",
+                      "~/Content/AdminLTE.min.css",
+                      "~/Content/skin-black-light.min.css"
+                      ));
         }
     }
 }

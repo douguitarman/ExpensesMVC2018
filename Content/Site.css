@@ -22,3 +22,7 @@ select,
 textarea {
     max-width: 280px;
 }
+table.table td img {
+    max-width: 70%;
+    max-height: 70%;
+}
