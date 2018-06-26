@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ExpensesMVC2018.Extensions;
 
 namespace ExpensesMVC2018.Controllers
 {
@@ -102,8 +103,12 @@ namespace ExpensesMVC2018.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                ex.LogTheError();
+                // not working
+                //ex.LogTheError("Error in SetPersonalInformation For: " + string.Format("{0},{1}", "Error", "Sorry something went wrong. Please try again."));
+
                 Response.StatusCode = 400;
                 Response.StatusDescription = "Sorry something went wrong. Please try again.";
                 return new EmptyResult();

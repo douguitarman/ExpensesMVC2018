@@ -5,7 +5,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Fixed Layout
+        Dashboard
         <small>Blank example to the fixed layout</small>
     </h1>
     <ol class="breadcrumb">
@@ -15,13 +15,104 @@
     </ol>
 </section>
 <section class="content">
-    <div class="callout callout-info">
+    <div class="row">
+        <!-- Users -->
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Users</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="users-list clearfix">
+                        <li>
+                            <a class="users-list-name" href="/Expenses/GetExpenses">My Expenses</a>
+                            <span class="users-list-date">Today</span>
+                        </li>
+                        <li>
+                            <a class="users-list-name" href="/Expenses/Create">Add Expense</a>
+                            <span class="users-list-date">Yesterday</span>
+                        </li>
+                    </ul>
+                    <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!--/.box -->
+        </div>
+
+        <!-- Managers -->
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Managers</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="users-list clearfix">
+                        <li>
+                            <a class="users-list-name" href="#">Manage Expenses</a>
+                            <span class="users-list-date">Today</span>
+                        </li>
+                        <li>
+                            <a class="users-list-name" href="#">My Team</a>
+                            <span class="users-list-date">Yesterday</span>
+                        </li>
+                    </ul>
+                    <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!--/.box -->
+        </div>
+
+        <!-- Finance -->
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Finance</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="users-list clearfix">
+                        <li>
+                            <a class="users-list-name" href="#">Manage Expenses</a>
+                            <span class="users-list-date">Today</span>
+                        </li>
+                        <li>
+                            <a class="users-list-name" href="#">Manage User Cards</a>
+                            <span class="users-list-date">Yesterday</span>
+                        </li>
+                    </ul>
+                    <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!--/.box -->
+        </div>
+    </div>
+    @*<div class="callout callout-info">
         <h4>Tip!</h4>
         <p>
             Add the fixed class to the body tag to get this layout. The fixed layout is your best option if your sidebar
             is bigger than your content because it prevents extra unwanted scrolling.
         </p>
-    </div>
+    </div>*@
 </section>
 <!-- /.content -->
 

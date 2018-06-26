@@ -5,98 +5,111 @@
     ViewBag.Title = "GetExpenses";
 }
 
-<h2>GetExpenses</h2>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h2>Get Expenses</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <ol class="breadcrumb">
+        <li><a href="/Home/Index"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">User</a></li>
+        <li class="active">Get Expenses</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseTypeDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpenseAmount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BranchCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VendorName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastFourCcNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StatusDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DisplayReceiptImage)
+                    </th>
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseTypeDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpenseAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BranchCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VendorName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastFourCcNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DisplayReceiptImage)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model.GetExpenses)
+            {
 
-    @foreach (var item in Model.GetExpenses)
-    {
+                var imagetype = "jpeg";
 
-        var imagetype = "jpeg";
+                String img64 = Convert.ToBase64String(item.DisplayReceiptImage);
+                //String img64Url = string.Format("data:image/" + item.imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
+                String img64Url = string.Format("data:image/" + imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
 
-        String img64 = Convert.ToBase64String(item.DisplayReceiptImage);
-        //String img64Url = string.Format("data:image/" + item.imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
-        String img64Url = string.Format("data:image/" + imagetype + ";base64,{0}", img64); //imagetype can be e.g. gif, jpeg, png etc.
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpenseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpenseTypeDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpenseAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BranchCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VendorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastFourCcNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusDescription)
-            </td>
-            <td>
-                @if (item.Notes != null)
-                {
-                    foreach (var note in item.Notes)
-                    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseTypeDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VendorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastFourCcNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusDescription)
+                </td>
+                <td>
+                    @if (item.Notes != null)
+                        {
+                            foreach (var note in item.Notes)
+                            {
                         @note
                         <hr />
-                    }
-                }
-            </td>
-            <td>
-                <img src="@img64Url" />
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <br />
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
+                            }
+                        }
+                </td>
+                <td>
+                    <img src="@img64Url" />
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) <br />
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+            }
 
-</table>
+            </table>
+        </div>
+    </div>
+</section>

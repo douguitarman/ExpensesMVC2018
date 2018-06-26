@@ -163,6 +163,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DataAccess\Expenses.cs" />
+    <Compile Include="Extensions\LogError.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -176,6 +177,7 @@
     <Compile Include="Utilities\DataWrapper.cs" />
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="Utilities\ImageResizer.cs" />
+    <Compile Include="Utilities\Logger.cs" />
     <Compile Include="ViewModels\ExpenseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
